@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        ボタン、textViewを丸める
         button.layer.cornerRadius = button.layer.bounds.width/2
         textView.layer.cornerRadius = 5.0
      
@@ -28,7 +29,7 @@ class ViewController: UIViewController {
     @IBAction func didClickButton(_ sender: Any) {
         
         inputSentence = textView.text!
-        
+//        API処理
         var request = URLRequest(url: URL(string: "https://labs.goo.ne.jp/api/hiragana")!,cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 5)
         request.httpMethod = "POST"
         
@@ -62,13 +63,17 @@ class ViewController: UIViewController {
             self.outputSentence = jsonData.converted
             print(self.outputSentence)
             print(jsonData.converted)
+//            非同期処理
+            DispatchQueue.main.async {
+//                画面遷移
+                self.performSegue(withIdentifier: "toResult", sender: nil)
+            }
           
         }
         task.resume()
 
-        performSegue(withIdentifier: "toResult", sender: nil)
-        
     }
+//    変数を次の画面に渡す
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toResult"{
             let AnswerVC = segue.destination as! AnswerViewController
