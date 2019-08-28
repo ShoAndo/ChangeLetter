@@ -20,6 +20,7 @@ class AnswerViewController: UIViewController {
     @IBOutlet weak var copyButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
+//        ボタンを丸める、textViewの角を丸くする
         backButton.layer.cornerRadius = backButton.layer.bounds.width/2
         copyButton.layer.cornerRadius = copyButton.layer.bounds.width/2
         inputTextView.layer.cornerRadius = 5.0
@@ -28,6 +29,7 @@ class AnswerViewController: UIViewController {
         inputTextView.text = inputSentence
         outputTextView.text = outputSentence
         print(outputSentence)
+//        タイトル
         self.parent?.navigationItem.title = "結果"
 
     }
@@ -37,6 +39,11 @@ class AnswerViewController: UIViewController {
     }
     
     @IBAction func didClickCopyButton(_ sender: Any) {
+        let pasteboard = UIPasteboard.general
+        
+        // 文字列をコピーする
+        pasteboard.setValue(outputSentence, forPasteboardType: "public.text")
+
     }
     @IBAction func didClickBarButton(_ sender: Any) {
          performSegue(withIdentifier: "toSearch", sender: nil)
